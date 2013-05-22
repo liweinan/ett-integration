@@ -1,18 +1,16 @@
-package org.bluedash.resteasy.interceptors;
+package io.ett.ws;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.ws.rs.core.Application;
 
-public class BluedashResteasyApplication extends Application {
+public class ETTIntegrationApplication extends Application {
 	private Set<Object> singletons = new HashSet<Object>();
 	private Set<Class<?>> classes = new HashSet<Class<?>>();
 
-	public BluedashResteasyApplication() {
-		// classes.add(UserServlet.class);
-		classes.add(UserServlet.class);
-		singletons.add(new MyHeaderDecorator());
+	public ETTIntegrationApplication() {
+		classes.add(MockedServlet.class);
 	}
 
 	@Override
