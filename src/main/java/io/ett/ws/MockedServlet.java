@@ -1,6 +1,7 @@
 package io.ett.ws;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 
 @Path("/mocked")
 public class MockedServlet {
@@ -13,9 +14,9 @@ public class MockedServlet {
 
     @Path("/bz")
     @POST
-    @Consumes("application/xml")
-    public void createBZ(@FormParam("bug") String bug, @FormParam("product") String product) {
-        // 200 HTTP OK
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    public String createBZ(@FormParam("bug") String bug, @FormParam("product") String product) {
+        return bug + product;
     }
 
     @Path("/mead/{tag}/{pkg}")

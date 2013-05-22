@@ -1,6 +1,7 @@
 package io.ett.ws.test.integration;
 
 import io.ett.ws.test.TestHelper;
+import org.junit.Assert;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
@@ -22,10 +23,20 @@ public class MockedTest {
     @Test
     public void testCreatBZ() {
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(TestHelper.BASE_URL + "/bz");
+        WebTarget target = client.target(TestHelper.BASE_URL + "/mocked/bz");
         Form form = new Form().param("bug", "123").param("product", "abc");
         Response response = target.request().post(Entity.form(form));
-        System.out.println(response.getStatus());
-        assert response.getStatus() == 200;
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("123abc", response.readEntity(String.class));
+    }
+
+    @Test
+    public void testGetMeadUrl() {
+        Client client = ClientBuilder.newClient();
+        WebTarget target = client.target(TestHelper.BASE_URL + "/mocked/mead/123/abc");
+        Response response = target.request().get();
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("123abc", response.readEntity(String.class));
+
     }
 }
